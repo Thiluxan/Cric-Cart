@@ -1,6 +1,5 @@
 <?php
     include ("configDB.php");
-
     if(isset($_REQUEST['er'])){
         if($_REQUEST['er'] == 1){
             echo "Incorrect Details";
@@ -23,5 +22,9 @@
         <input type="password" name="password" id="password" required><br>
         <input type="submit" name="submit" value="Login">
     </form>
+    <br>
+    Don't Have an account 
+    <a href="registration.php">Register</a><br>
+    (Not for Suppliers)
 </body>
 </html>
