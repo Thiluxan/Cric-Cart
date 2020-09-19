@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supplier</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
             crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
@@ -20,28 +20,27 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="supplier.php">Dashboard</a></li>
-                    <li><a href="myProduct.php">My Products</a></li>
-                    <li><a href="addProduct.php">Add Products</a></li>
+                    <li><a href="admin.php">Dashboard</a></li>
+                    <li><a href="manageSupplier.php">Manage Suppliers</a></li>
+                    <li><a href="manageProduct.php">Manage Products</a></li>
                     <li><a href="../logout.php" id="login">Logout</a></li>
                 </ul>
             </nav>
         </div>
     </header>
   <section>
-    <?php
+      <?php
         $photo = $_SESSION['profile'];
       ?>
       <div class="icon">
         <img src= <?php echo "../".$photo; ?> alt="Login icon">
-        <p style="text-align: center;"><?php echo strtoupper($_SESSION['name']); ?></p>
       </div>
       <div class="navigator">
-        Name: <?php echo $_SESSION['name']; ?><br>
-        Email: <?php echo $_SESSION['email']; ?>
+        <a href="#">View Products</a><br><br><br><br><br><br>
+        <a href="#">Delete Products</a>
       </div>
   </section>
-    <footer>
+  <footer>
         <p>Cric Cart, Copyright &copy; 2020</p>
     </footer>
 </body>

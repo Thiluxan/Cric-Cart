@@ -6,23 +6,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Supplier</title>
+    <title>Supplier</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
             crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        form{
+            margin-top: -65px;
+        }
+        footer{
+            margin-top: 100px;
+        }
+    </style>
 </head>
 <body>
-<header>
+    <header>
         <div class="container">
             <div id="branding">
                 <h1>Cric Cart</h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="admin.php">Dashboard</a></li>
-                    <li><a href="#">Manage Suppliers</a></li>
-                    <li><a href="#">Manage Products</a></li>
+                    <li><a href="supplier.php">Dashboard</a></li>
+                    <li><a href="myProduct.php">My Products</a></li>
+                    <li><a href="addProduct.php">Add Products</a></li>
                     <li><a href="../logout.php" id="login">Logout</a></li>
                 </ul>
             </nav>
@@ -30,10 +38,10 @@
     </header>
     <div id="form_wrapper">
             <div id="form_left">
-                <img src="../images/login.png" alt="Login icon">
+                <img src="../images/cricaccessory.jpg" alt="Login icon">
             </div>
             <div id="form_right">
-                <h1>Add Supplier</h1><br>
+                <h1>Add Product</h1><br>
                 <?php 
                     if(isset($_REQUEST['er'])){
                         if($_REQUEST['er'] == 1){
@@ -44,26 +52,27 @@
                         }
                     }
                 ?>
-                <form action="../_registerSupplier.php" method="POST" enctype="multipart/form-data">
+                <form action="../_addProduct.php" method="POST" enctype="multipart/form-data">
                     <div class="input_container">
-                        <i class="fa fa-user" aria-hidden="true"></i>
                         <input placeholder="Name" type="text" name="name" id="field_name" class='input_field'>
                     </div><br>
                     <div class="input_container">
-                        <i class="fas fa-envelope"></i>
-                        <input placeholder="Email" type="email" name="email" id="field_email" class='input_field'>
+                        <input placeholder="Type" type="text" name="type"  class='input_field'>
                     </div><br>
                     <div class="input_container">
-                        <i class="fas fa-lock"></i>
-                        <input  placeholder="Password" type="password" name="password" id="field_password" class='input_field'>
+                        <input  placeholder="Key Word" type="text" name="keyword" class='input_field'>
                     </div><br>
-                        <input type="hidden" name="role" value="supplier">
                     <div class="input_container">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        <label for="profile">Profile Picture    </label>
+                        <input  placeholder="Price ($)" type="text" name="price" class='input_field'>
+                    </div><br>
+                    <div class="input_container">
+                        <input  placeholder="Quantity" type="text" name="quantity" class='input_field'>
+                    </div><br>
+                    <div class="input_container">
+                        <label for="profile"> Picture    </label>
                         <input type="file" name="fileToUpload" id="fileToUpload" required>
                     </div><br>
-                    <input type="submit" value="Register" id='input_submit' class='input_field'>
+                    <input type="submit" value="Add Product" id='input_submit' class='input_field'>
                 </form>
             </div>
     </div>

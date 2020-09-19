@@ -18,15 +18,15 @@
         $_SESSION['profile'] = $row['profile'];
         $_SESSION['name'] = $row['name'];
         if(strcmp($role,'user') == 0){
-            $link = "location:http://localhost/onlineshop/user/shop.php?name=".$_SESSION['name'];
+            $link = "location:http://localhost/onlineshop/user/shop.php";
             header($link);
         }
         else if(strcmp($role,'admin') == 0){
-            $link = "location:http://localhost/onlineshop/admin/admin.php?name=".$_SESSION['name'];
+            $link = "location:http://localhost/onlineshop/admin/admin.php";
             header($link);
         }
         else if(strcmp($role,'supplier') == 0){
-            $link = "location:http://localhost/onlineshop/supplier/supplier.php?name=".$_SESSION['name'];
+            $link = "location:http://localhost/onlineshop/supplier/supplier.php";
             header($link);
         }
         
