@@ -43,7 +43,6 @@
                 <ul>
                     <li class="current"><a href="index.php">Home</a></li>
                     <li><a href="explore.php">Explore</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
                     <li><a href="login.php" id="login">Login</a></li>
                 </ul>
             </nav>
