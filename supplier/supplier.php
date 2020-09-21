@@ -30,15 +30,23 @@
     </header>
   <section>
     <?php
+        include("../configDB.php");
         $photo = $_SESSION['profile'];
+        $supplier = $_SESSION['email'];
+        $query = "SELECT COUNT(*) FROM products WHERE supplier_email = '$supplier'";     
+        $rs_result = mysqli_query($db, $query);     
+        $row = mysqli_fetch_row($rs_result);     
+        $total_records = $row[0];    
       ?>
       <div class="icon">
         <img src= <?php echo "../".$photo; ?> alt="Login icon">
-        <p style="text-align: center;"><?php echo strtoupper($_SESSION['name']); ?></p>
       </div>
       <div class="navigator">
-        Name: <?php echo $_SESSION['name']; ?><br>
-        Email: <?php echo $_SESSION['email']; ?>
+        <div class="info">
+            <p style="color: green; font-size:30px; font-weight:bold; margin-top:-25px;">Name: <?php echo $_SESSION['name']; ?><br><br>
+            Email: <?php echo $_SESSION['email']; ?><br><br>
+            Total No.of Products: <?php echo $total_records; ?></p>
+        </div>
       </div>
   </section>
     <footer>

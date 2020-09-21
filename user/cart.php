@@ -121,7 +121,7 @@
             </tr>
             <tr>
                 <td><h1>Delivery Charges</h1></td>
-                <td><h1>FREE</h1></td>
+                <td><h1 style="color: green;">FREE</h1></td>
             </tr>
             <tr>
                 <td><h1>Total</h1></td>

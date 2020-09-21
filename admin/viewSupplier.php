@@ -1,6 +1,17 @@
 <?php
     session_start();
     include('../configDB.php');
+    if(isset($_POST['remove'])){
+        $supplier = $_POST['removeSupplier'];
+        $sql = "DELETE FROM users WHERE email = '$supplier'";
+        if(mysqli_query($db,$sql)){
+            header("location:viewSupplier.php");
+        }
+        else{
+            echo "<script>alert('An error occured while deleting')</script>";
+            header("location:viewSupplier.php");
+        }
+    }
     
 ?>
 <!DOCTYPE html>
@@ -13,6 +24,30 @@
             crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link rel="stylesheet" href="../css/styleAdmin.css">
+    <style>
+        table{
+            padding: 15px;
+            width: 1100px;
+            font-size: 22px;
+            margin-left: 200px;
+            text-align: center;
+        }
+        td{
+            padding: 20px;
+        }
+        th, td{
+            border: 2px solid black;
+        }
+        table img{
+            width: 50px;
+            height: 50px;
+        }
+        table button{
+            background-color: red;
+            color: white;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -34,17 +69,27 @@
     <div class="suppliers">
         <table>
             <thead>
+            <th></th>
                 <th>Name</th>
                 <th>Email</th>
+                <th></th>
             </thead>
             <?php
-                $sql = "SELECT * FROM users WHERE role = supplier";
+                $sql = "SELECT * FROM users WHERE role = 'supplier'";
                 $result = mysqli_query($db,$sql);
                 while($row = mysqli_fetch_assoc($result)){
-                    echo "<tr> 
-                    <td>".$row['name']."</td>".
-                    "<td>".$row['email']."</td>
-                    </tr>";
+                    $email = $row['email'];
+                    echo '<tr> 
+                    <td><img src=../'.$row['profile'].'</td>
+                    <td>'.$row["name"].'</td>'.
+                    '<td>'.$row["email"].'</td>
+                    <td>
+                    <form action="viewSupplier.php" method="POST">
+                    <input type="hidden" value='.$email.' name="removeSupplier">
+                    <button type="submit" name="remove" value="REMOVE">REMOVE</button>
+                    </form>
+                    </td>
+                    </tr>';
                 }
             ?>
         </table>

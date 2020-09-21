@@ -34,7 +34,7 @@
             $sql1 = "INSERT INTO products(name,type,keyword,price,quantity,supplier_email,image) VALUES ('$name','$type','$keyword','$price','$quantity','$supplier','$imageDir')";
             mysqli_query($db,$sql1);
 
-            header('location:supplier/supplier.php');
+            header('location:supplier/myProduct.php');
         } 
         else {
             header('location:supplier/addProduct.php?er=1');

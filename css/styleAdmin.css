@@ -90,6 +90,10 @@ section .navigator{
     margin-bottom: 15px;
     border-radius: 15px;
 }
+.info p{
+    font-size: 25px;
+    font-weight: bold;
+}
 table{
     color: black;
 }

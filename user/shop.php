@@ -36,6 +36,7 @@
             crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/stylePagination.css">
     <style>
    
         form{
@@ -85,7 +86,16 @@
     <div class="cart">
         <?php
             include('../configDB.php');
-            $sql = "SELECT * FROM products";
+            $per_page_record = 6;       
+            if (isset($_GET["page"])) {    
+                $page  = $_GET["page"];    
+            }    
+            else {    
+              $page=1;    
+            }    
+        
+            $start_from = ($page-1) * $per_page_record;    
+            $sql = "SELECT * FROM products LIMIT $start_from, $per_page_record";
             $result = mysqli_query($db,$sql);
             while($row = mysqli_fetch_assoc($result)){
                 echo '                
@@ -104,9 +114,45 @@
             }
         ?>
     </div>
-    </section>
+    <div class="pagination">    
+      <?php  
+        $query = "SELECT COUNT(*) FROM products";     
+        $rs_result = mysqli_query($db, $query);     
+        $row = mysqli_fetch_row($rs_result);     
+        $total_records = $row[0];     
+          
+    echo "</br>";     
+        // Number of pages required.   
+        $total_pages = ceil($total_records / $per_page_record);     
+        $pagLink = "";       
+      
+        if($page>=2){   
+            echo "<a href='shop.php?page=".($page-1)."'>  Prev </a>";   
+        }       
+                   
+        for ($i=1; $i<=$total_pages; $i++) {   
+          if ($i == $page) {   
+              $pagLink .= "<a class = 'active' href='shop.php?page="  
+                                                .$i."'>".$i." </a>";   
+          }               
+          else  {   
+              $pagLink .= "<a href='shop.php?page=".$i."'>   
+                                                ".$i." </a>";     
+          }   
+        };     
+        echo $pagLink;   
+  
+        if($page<$total_pages){   
+            echo "<a href='shop.php?page=".($page+1)."'>  Next </a>";   
+        }   
+  
+      ?>    
+      </div>  
+    </div>   
+  </div>  
+   </section>
     <footer>
         <p>Cric Cart, Copyright &copy; 2020</p>
     </footer>
-</body>
+</body> 
 </html>
