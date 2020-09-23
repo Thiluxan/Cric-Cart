@@ -1,0 +1,136 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+}
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+header{
+    background-color: #354243;
+    color: bisque;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: orangered 3px solid;
+}
+header a{
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+header nav li .current{
+    color: orange;
+}
+header a:hover{
+    color: orange;
+}
+header li{
+    display: inline;
+    float: left;
+    padding: 0 20px 0 20px;
+
+}
+header #branding{
+    float: left;
+}
+header #branding h1{
+    margin: 0;
+}
+header nav{
+    float: right;
+    margin-top: 10px;
+}
+footer{
+    margin-top: 50px;
+    position: inherit;
+    padding: 20px;
+    color: white;
+    background-color: orangered;
+    font-weight: bold;
+    text-align: center;
+}
+.product_wrapper {
+    float: left;
+    padding: 10px;
+    margin-top: 50px;
+    margin-left: 120px;
+    text-align: center;
+}
+.product_wrapper .image img{
+    height: 300px;
+    width: 300px;
+}
+.product_wrapper:hover {
+box-shadow: 0 0 0 2px #e5e5e5;
+cursor:pointer;
+}
+.product_wrapper .name {
+font-weight:bold;
+}
+.product_wrapper .buy {
+text-transform: uppercase;
+background: #F68B1E;
+border: 1px solid #F68B1E;
+cursor: pointer;
+color: #fff;
+padding: 8px 40px;
+margin-top: 10px;
+}
+.product_wrapper .buy:hover {
+background: #f17e0a;
+border-color: #f17e0a;
+}
+.message_box .box{
+margin: 10px 0px;
+border: 1px solid #2b772e;
+text-align: center;
+font-weight: bold;
+color: #2b772e;
+}
+
+.table td {
+border-bottom: #F0F0F0 1px solid;
+padding: 10px;
+}
+.cart_div {
+float:right;
+font-weight:bold;
+position:relative;
+}
+.cart_div a {
+color:#000;
+} 
+.cart_div span {
+font-size: 12px;
+line-height: 14px;
+background: #F68B1E;
+padding: 2px;
+border: 2px solid #fff;
+border-radius: 50%;
+position: absolute;
+top: -1px;
+left: 13px;
+color: #fff;
+width: 20px;
+height: 20px;
+text-align: center;
+}
+.cart .remove {
+background: none;
+border: none;
+color: #0067ab;
+cursor: pointer;
+padding: 0px;
+}
+.cart .remove:hover {
+text-decoration:underline;
+}

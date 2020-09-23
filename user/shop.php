@@ -1,28 +1,43 @@
 <?php
     session_start();
-    if(isset($_POST['add'])){
-        if(isset($_SESSION['cart'])){
-            $item_array_id = array_column($_SESSION['cart'],'product_id');
-            if(in_array($_POST['product_id'],$item_array_id)){
-                echo "<script>alert('Item already added to the cart')</script>";
-                echo "<script>window.location='shop.php'</script>";
-            }
-            else{
-                $count = count($_SESSION['cart']);
-                $item_array = array(
-                    'product_id' => $_POST['product_id']
+    include('../configDB.php');
+    $status="";
+    if (isset($_POST['p_id']) && $_POST['p_id']!=""){
+        $p_id = $_POST['p_id'];
+        $sql = "SELECT * FROM products WHERE p_id = '$p_id'";
+        $result = mysqli_query($db,$sql);
+        $row = mysqli_fetch_assoc($result);
+        $p_id = $row['p_id'];
+        $name = $row['name'];
+        $price = $row['price'];
+        $image = $row['image'];
+        
+        $cartArray = array(
+        $p_id=>array(
+        'p_id'=>$p_id,
+        'name'=>$name,
+        'price'=>$price,
+        'quantity'=>1,
+        'image'=>$image)
+        );
+        
+        if(empty($_SESSION["shopping_cart"])) {
+            $_SESSION["shopping_cart"] = $cartArray;
+            $status = "<div class='box'>Product is added to your cart!</div>";
+        }else{
+            $array_keys = array_keys($_SESSION["shopping_cart"]);
+            if(in_array($p_id,$array_keys)) {
+                $status = "<div class='box' style='color:red;'>
+                Product is already added to your cart!</div>"; 
+            } 
+            else {
+                $_SESSION["shopping_cart"] = array_merge(
+                $_SESSION["shopping_cart"],
+                $cartArray
                 );
-                $_SESSION['cart'][$count] = $item_array;
-                
+                $status = "<div class='box'>Product is added to your cart!</div>";
             }
-        }
-        else{
-            $item_array = array(
-                'product_id' => $_POST['product_id']
-            );
-
-            $_SESSION['cart'][0] = $item_array;
-            
+        
         }
     }
 ?>
@@ -31,44 +46,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Now</title>
+    <title>Document</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
             crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styleCart.css">
     <link rel="stylesheet" href="../css/stylePagination.css">
-    <style>
-   
-        form{
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 50px;
-            margin-left: 70px;            
-        }
-        form .item{
-            background-color:thistle;
-            margin-left: 120px;
-            margin-bottom: 20px;
-            align-items: center;
-            text-align: center;
-            box-shadow: beige;
-            border-radius: 5px;
-            margin-top: 40px;
-        }
-        .item button{
-            background-color: green;
-            color: white;
-            padding: 14px;
-            margin-bottom: 20px;
-        }
-        .item img{
-            width: 300px;
-            height: 300px;
-        }
-    </style>
 </head>
 <body>
-    <header>
+<?php
+    if(!empty($_SESSION["shopping_cart"])) {
+    $cart_count = count(array_keys($_SESSION["shopping_cart"]));
+    }
+    else{
+        $cart_count = 0;
+    }
+?>
+<header>
         <div class="container">
             <div id="branding">
                 <h1>Cric Cart</h1>
@@ -76,45 +70,43 @@
             <nav>
                 <ul>
                     <li><a href="shop.php">Shop Now</a></li>
-                    <li><a href="cart.php">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                    <li><a href="cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <?php echo $cart_count; ?></a></li>
                     <li><a href="../logout.php" id="login">Logout</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <section>
-    <div class="cart">
-        <?php
-            include('../configDB.php');
-            $per_page_record = 6;       
-            if (isset($_GET["page"])) {    
-                $page  = $_GET["page"];    
-            }    
-            else {    
-              $page=1;    
-            }    
-        
-            $start_from = ($page-1) * $per_page_record;    
-            $sql = "SELECT * FROM products LIMIT $start_from, $per_page_record";
-            $result = mysqli_query($db,$sql);
-            while($row = mysqli_fetch_assoc($result)){
-                echo '                
-                <form action="shop.php" method="POST">
-                <div class="item">
-                <img src=../'.$row['image'].' alt = "Product">
-                <h2>'.$row['name'].'</h2>
-                <h3>Price: $'.$row['price'].'</h3>
-                <button type="submit" name="add">
-                Add to Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                </button>
-                </div>
-                <input type="hidden" name="product_id" value='.$row['p_id'].'
-                </form>
-                ';
-            }
-        ?>
-    </div>
-    <div class="pagination">    
+<?php
+    $per_page_record = 6;         
+    if (isset($_GET["page"])) {    
+        $page  = $_GET["page"];    
+    }    
+    else {    
+    $page=1;    
+    }    
+
+    $start_from = ($page-1) * $per_page_record;    
+    $sql = "SELECT * FROM products LIMIT $start_from, $per_page_record";
+        $result = mysqli_query($db,$sql);
+        while($row = mysqli_fetch_assoc($result)){
+            echo "<div class='product_wrapper'>
+            <form method='post' action=''>
+            <input type='hidden' name='p_id' value=".$row['p_id']." />
+            <div class='image'><img src='../".$row['image']."' /></div>
+            <div class='name'>".$row['name']."</div>
+            <div class='price'>$".$row['price']."</div>
+            <button type='submit' class='buy'>Add to Cart<i class='fa fa-shopping-cart' aria-hidden='true'></i> </button>
+            </form>
+            </div>";
+        }
+?>
+ 
+<div style="clear:both;"></div>
+ 
+<div class="message_box" style="margin:10px 0px;">
+<?php echo $status; ?>
+</div>
+<div class="pagination">    
       <?php  
         $query = "SELECT COUNT(*) FROM products";     
         $rs_result = mysqli_query($db, $query);     
@@ -147,12 +139,9 @@
         }   
   
       ?>    
-      </div>  
-    </div>   
-  </div>  
-   </section>
+</div>  
     <footer>
         <p>Cric Cart, Copyright &copy; 2020</p>
     </footer>
-</body> 
+</body>
 </html>

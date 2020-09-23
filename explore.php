@@ -4,35 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CricCart</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleCart.css">
     <link rel="stylesheet" href="css/stylePagination.css">
     <style>
-        .cart{
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 50px;
-            margin-left: 70px;
+        #login{
+            background-color: white;
+            color: teal;
+            border-radius: 9px;
+            padding: 12px;
         }
-        .item{
-            background-color:thistle;
-            margin-left: 120px;
-            margin-bottom: 20px;
-            align-items: center;
-            text-align: center;
-            box-shadow: beige;
-            border-radius: 5px;
-        }
-        .item button{
-            background-color: green;
-            color: white;
-            padding: 14px;
-            margin-bottom: 20px;
-        }
-        .item img{
-            width: 300px;
-            height: 300px;
-        }
-        
     </style>
 </head>
 <body>
@@ -51,28 +31,31 @@
         </div>
     </header>
     <section>
-    <div class="cart">
+    <div class="cart" style="display: flex; flex-wrap:wrap;">
         <?php
-            include('configDB.php');
-            $per_page_record = 6;         
-            if (isset($_GET["page"])) {    
-                $page  = $_GET["page"];    
-            }    
-            else {    
-              $page=1;    
-            }    
-        
-            $start_from = ($page-1) * $per_page_record;    
-            $sql = "SELECT * FROM products LIMIT $start_from, $per_page_record";
-            $result = mysqli_query($db,$sql);
-            while($row = mysqli_fetch_assoc($result)){
-                echo '<div class="item">
-                <img src='.$row['image'].' alt = "Product">
-                <h2>'.$row['name'].'</h2>
-                <h3>$'.$row['price'].'</h3></div>';
-            }
+            include('./configDB.php');
+             $per_page_record = 6;         
+             if (isset($_GET["page"])) {    
+                 $page  = $_GET["page"];    
+             }    
+             else {    
+             $page=1;    
+             }    
+         
+             $start_from = ($page-1) * $per_page_record;    
+             $sql = "SELECT * FROM products LIMIT $start_from, $per_page_record";
+                 $result = mysqli_query($db,$sql);
+                 while($row = mysqli_fetch_assoc($result)){
+                     echo "<div class='product_wrapper'>
+                     <div class='image'><img src='./".$row['image']."' /></div>
+                     <div class='name'>".$row['name']."</div>
+                     <div class='price'>$".$row['price']."</div>
+                     </div>";
+                 }
         ?>
     </div>
+    </section>
+    <section>
     <div class="pagination">    
       <?php  
         $query = "SELECT COUNT(*) FROM products";     
@@ -106,16 +89,7 @@
         }   
   
       ?>    
-      </div>  
-  
-  
-      <div class="inline">   
-      <input id="page" type="number" min="1" max="<?php echo $total_pages?>"   
-      placeholder="<?php echo $page."/".$total_pages; ?>" required>   
-      <button onClick="go2Page();">Go</button>   
-     </div>    
-    </div>   
-  </div>  
+    </div>  
   <script>   
     function go2Page()   
     {   

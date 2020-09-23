@@ -26,14 +26,14 @@
     <link rel="stylesheet" href="../css/styleAdmin.css">
     <style>
         table{
-            padding: 15px;
+            padding: 5px;
             width: 1100px;
             font-size: 22px;
             margin-left: 200px;
             text-align: center;
         }
         td{
-            padding: 20px;
+            padding: 30px;
         }
         th, td{
             border: 2px solid black;
@@ -79,8 +79,14 @@
                 $result = mysqli_query($db,$sql);
                 while($row = mysqli_fetch_assoc($result)){
                     $email = $row['email'];
-                    echo '<tr> 
-                    <td><img src=../'.$row['profile'].'</td>
+                    $profileImage = "../".$row['profile'];
+                    echo '<tr> ';?>
+                    <?php
+                        $profileImage = "../".$row['profile'];
+                    ?>
+                    <td><img src=<?php echo $profileImage; ?> alt="" width="200" height="200"></td>
+                    <?php
+                    echo '
                     <td>'.$row["name"].'</td>'.
                     '<td>'.$row["email"].'</td>
                     <td>

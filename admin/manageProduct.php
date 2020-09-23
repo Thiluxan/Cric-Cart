@@ -1,15 +1,10 @@
 <?php
     session_start();
-    if(isset($_POST['remove'])){
-        $product = $_POST['product_id'];
-        $sql = "DELETE FROM products WHERE p_id = '$product'";
-        if(mysqli_query($db,$sql)){
-            header("location:manageProduct.php");
-        }
-        else{
-            echo "<script>alert('An error occured while deleting')</script>";
-            header("location:manageProduct.php");
-        }
+    include("../configDB.php");
+    if(isset($_POST['p_id']) && $_POST['p_id']!=""){
+        $p_id = $_POST['p_id'];
+        $sql = "DELETE FROM products WHERE p_id = '$p_id'";
+        mysqli_query($db,$sql);
     }
 ?>
 <!DOCTYPE html>
@@ -21,34 +16,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
             crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styleCart.css">
     <link rel="stylesheet" href="../css/stylePagination.css">
     <style>
-         form{
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 50px;
-            margin-left: 70px;            
-        }
-        form .item{
-            background-color:thistle;
-            margin-left: 120px;
-            margin-bottom: 20px;
-            align-items: center;
-            text-align: center;
-            box-shadow: beige;
-            border-radius: 5px;
-            margin-top: 40px;
-        }
-        .item button{
+        .product_wrapper .buy{
             background-color: red;
             color: white;
-            padding: 14px;
-            margin-bottom: 20px;
-        }
-        .item img{
-            width: 300px;
-            height: 300px;
+            padding: 8px 40px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -71,33 +46,28 @@
     <section>
     <div class="cart">
         <?php
-            include('../configDB.php');
-            $per_page_record = 6;       
-            if (isset($_GET["page"])) {    
-                $page  = $_GET["page"];    
-            }    
-            else {    
-              $page=1;    
-            }    
-        
-            $start_from = ($page-1) * $per_page_record;    
-            $sql = "SELECT * FROM products LIMIT $start_from, $per_page_record";
-            $result = mysqli_query($db,$sql);
-            while($row = mysqli_fetch_assoc($result)){
-                $pid = $row['p_id'];
-                echo '                
-                <form action="manageProduct.php" method="POST">
-                <div class="item">
-                <img src=../'.$row['image'].' alt = "Product">
-                <h2>'.$row['name'].'</h2>
-                <h3>Price: $'.$row['price'].'</h3>
-                <input type="hidden" name="product_id" value='.$pid.'>
-                <button type="submit" name="remove">REMOVE
-                </button>
-                </div>
-                </form>
-                ';
-            }
+             $per_page_record = 6;         
+             if (isset($_GET["page"])) {    
+                 $page  = $_GET["page"];    
+             }    
+             else {    
+             $page=1;    
+             }    
+         
+             $start_from = ($page-1) * $per_page_record;    
+             $sql = "SELECT * FROM products LIMIT $start_from, $per_page_record";
+                 $result = mysqli_query($db,$sql);
+                 while($row = mysqli_fetch_assoc($result)){
+                     echo "<div class='product_wrapper'>
+                     <form method='post' action=''>
+                     <input type='hidden' name='p_id' value=".$row['p_id']." />
+                     <div class='image'><img src='../".$row['image']."' /></div>
+                     <div class='name'>".$row['name']."</div>
+                     <div class='price'>$".$row['price']."</div>
+                     <button type='submit' class='buy'>Remove </button>
+                     </form>
+                     </div>";
+                 }
         ?>
     </div>
     <div class="pagination">    
