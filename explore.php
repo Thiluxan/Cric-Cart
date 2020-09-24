@@ -99,6 +99,11 @@
     }   
   </script>  
     </section>
+    <section>
+        <table>
+            
+        </table>
+    </section>
     <footer>
         <p>Cric Cart, Copyright &copy; 2020</p>
     </footer>

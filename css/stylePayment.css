@@ -1,0 +1,109 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+}
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+header{
+    background-color: #354243;
+    color: bisque;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: orangered 3px solid;
+}
+header a{
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+header nav li .current{
+    color: orange;
+}
+header a:hover{
+    color: orange;
+}
+header li{
+    display: inline;
+    float: left;
+    padding: 0 20px 0 20px;
+
+}
+header #branding{
+    float: left;
+}
+header #branding h1{
+    margin: 0;
+}
+header nav{
+    float: right;
+    margin-top: 10px;
+}
+footer{
+    margin-top: 250px;
+    position: inherit;
+    padding: 20px;
+    color: white;
+    background-color: orangered;
+    font-weight: bold;
+    text-align: center;
+}
+form{
+    font-size: 18px;
+    margin-top: -50px;
+}
+form .payment{
+    margin-left: 300px;
+    margin-top: 50px;
+}
+form .customer{
+    float: right;
+    margin-top: -280px;
+    margin-right: 400px;
+}
+form input[type="text"]{
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+    width: 300px;
+}
+form input[type="submit"]{
+    background-color: darkorchid;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-left: 300px;
+    margin-top: 50px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 150px;
+}
+.success{
+    background-color: yellow;
+    padding:30px ;
+    margin-left: 50px;
+    margin-top: 100px;
+    margin-right: 50px;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    font-size: 25px;
+}
+.success a{
+    background-color: tomato;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 15px;
+}

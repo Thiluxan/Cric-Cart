@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if($_SESSION['email'] == null){
+        header("location:http://localhost/os/login.php");
+    }
     include('../configDB.php');
     if(isset($_POST['remove'])){
         $supplier = $_POST['removeSupplier'];

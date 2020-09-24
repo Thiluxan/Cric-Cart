@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +22,6 @@
                 <ul>
                     <li class="current"><a href="index.php">Home</a></li>
                     <li><a href="explore.php">Explore</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
                     <li><a href="login.php" id="login">Login</a></li>
                 </ul>
             </nav>
@@ -35,7 +37,7 @@
                     include ("configDB.php");
                     if(isset($_REQUEST['er'])){
                         if($_REQUEST['er'] == 1){
-                            echo '<span id="error">Incorrect Details</span>';
+                            echo '<span id="error" style="color:red;">Incorrect Details</span>';
                         }
                     }
                 ?>

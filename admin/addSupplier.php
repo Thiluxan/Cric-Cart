@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if($_SESSION['email'] == null){
+        header("location:http://localhost/os/login.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +24,8 @@
             <nav>
                 <ul>
                     <li><a href="admin.php">Dashboard</a></li>
-                    <li><a href="#">Manage Suppliers</a></li>
-                    <li><a href="#">Manage Products</a></li>
+                    <li><a href="manageSupplier.php">Manage Suppliers</a></li>
+                    <li><a href="manageProduct.php">Manage Products</a></li>
                     <li><a href="../logout.php" id="login">Logout</a></li>
                 </ul>
             </nav>

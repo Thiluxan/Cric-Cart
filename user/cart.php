@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['email'] == null){
+  header("location:http://localhost/os/login.php");
+}
 $status="";
 if (isset($_POST['action']) && $_POST['action']=="remove"){
 if(!empty($_SESSION["shopping_cart"])) {
@@ -113,6 +116,7 @@ if (isset($_POST['action']) && $_POST['action']=="change"){
     </tr>
       <?php
         $total_price += ($product["price"]*$product["quantity"]);
+        $_SESSION['total'] = $total_price;
       }
       ?>
     <tr>
@@ -121,9 +125,10 @@ if (isset($_POST['action']) && $_POST['action']=="change"){
     </td>
     </tr>
     </tbody>
-    </table> 
+    </table> <br><br>
+    <a href="payment.php" style="background-color: green; color:white; padding:10px; text-decoration:none; margin-left:800px;">Proceed to Payment</a>
     <?php
-      }
+      } 
       else{
       echo "<h3>Your cart is empty!</h3>";
       }

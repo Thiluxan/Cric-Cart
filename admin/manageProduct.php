@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if($_SESSION['email'] == null){
+        header("location:http://localhost/os/login.php");
+    }
     include("../configDB.php");
     if(isset($_POST['p_id']) && $_POST['p_id']!=""){
         $p_id = $_POST['p_id'];
@@ -44,7 +47,7 @@
         </div>
     </header>
     <section>
-    <div class="cart">
+    <div class="cart" style="display: flex; flex-wrap:wrap;">
         <?php
              $per_page_record = 6;         
              if (isset($_GET["page"])) {    

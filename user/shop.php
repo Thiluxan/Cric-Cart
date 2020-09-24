@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if($_SESSION['email'] == null){
+        header("location:http://localhost/os/login.php");
+    }
     include('../configDB.php');
     $status="";
     if (isset($_POST['p_id']) && $_POST['p_id']!=""){
@@ -11,7 +14,6 @@
         $name = $row['name'];
         $price = $row['price'];
         $image = $row['image'];
-        
         $cartArray = array(
         $p_id=>array(
         'p_id'=>$p_id,

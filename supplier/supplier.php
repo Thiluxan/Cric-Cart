@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if($_SESSION['email'] == null){
+        header("location:http://localhost/os/login.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
